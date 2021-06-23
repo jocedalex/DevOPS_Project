@@ -1,0 +1,50 @@
+﻿@model DevOPS_Project.Models.Room
+
+@{
+    ViewBag.Title = "Data";
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3>New Room</h3>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="BuildingID" class="form-control" value="@ViewBag.BId" type="hidden"/>
+                <span asp-validation-for="BuildingID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="RoomName" class="control-label"></label>
+                <input asp-for="RoomName" class="form-control" />
+                <span asp-validation-for="RoomName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsTR" class="control-label"></label>
+                <select asp-for="IsTR">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                <span asp-validation-for="IsTR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Create Room" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{ 
+
+    @{  <partial name="_ValidationScriptsPartial.cshtml" />}
+}
+

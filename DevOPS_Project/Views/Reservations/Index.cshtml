@@ -1,0 +1,216 @@
+﻿@model DevOPS_Project.Models.Reservation
+@using DevOPS_Project.Helper
+@{
+    ViewBag.Title = "Data";
+    ViewData["Title"] = "Reservations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style> 
+    #calendar {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+</style>
+<div class="container">
+    
+
+    <div class="row" style="padding-bottom:20px;">
+        <div class="col-sm-9">
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["success"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        </div>
+        <a class="btn btn-dark col-sm-3" style="color: #ffffff;" data-toggle="modal" data-target="#fullModal2" id="buttonR">New Reservation</a>
+    </div>
+    <div id='calendar'></div>
+</div>
+
+
+<div id="fullModal" class="modal fade">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">                
+                <a class="btn btn-primary" id="eventUrl">Edit</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fullModal2" class="modal fade">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>New Reservation <b id="modalTitle2"></b></span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div id="modalBody2" class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <form method="post" asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="RoomID" class="control-label"></label>                          
+                               
+                                <select asp-for="RoomID" class="form-control" id="mySelect">
+                                    
+                                </select>
+                                <span asp-validation-for="RoomID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="UserID" class="form-control" value="@SessionHelper.GetNameIdentifier(User)" type="hidden" />
+                                <span asp-validation-for="UserID" class="text-danger"></span>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label asp-for="ReservDT" class="control-label"></label>
+                                    <input type="date" asp-for="ReservDT" class="form-control" id="dateReserv"/>
+                                    <span asp-validation-for="ReservDT" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label asp-for="ReservStartTime" class="control-label"></label>
+                                    <input type="time" asp-for="ReservStartTime" class="form-control" />
+                                    <span asp-validation-for="ReservStartTime" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label asp-for="ReservEndTime" class="control-label"></label>
+                                    <input type="time" asp-for="ReservEndTime" class="form-control" />
+                                    <span asp-validation-for="ReservEndTime" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <input type="submit" value="Make Reservation" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var id = 0;
+
+    
+
+    
+
+    //Calendar
+    document.addEventListener('DOMContentLoaded',function (id) {
+        var calendarEl = document.getElementById('calendar');
+
+        $.get('../../Reservations/GetRooms')
+            .done(function (data) {
+
+                var events = [];
+
+                $.each(data, function (idx, element) {
+
+                    $('#mySelect').append($("<option>", {
+                        value: element.id,
+                        text: element.name
+                    }));
+                });
+            });
+
+        $.get('../../Reservations/GetEvents')
+            .done(function (data) {
+
+                var events = [];
+
+                $.each(data, function (idx, element) {
+
+                    events.push({
+                        id: element.id,
+                        title: element.title,
+                        start: element.start,
+                        end: element.end,
+                        color: '#000000'
+
+                    })
+                });
+
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialDate: '2021-06-01',
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                    },
+                    height: 'auto',
+                    navLinks: true, // can click day/week names to navigate views
+                    editable: true,
+                    selectable: true,
+                    selectMirror: true,
+                    nowIndicator: true,
+                    events: events,
+                    select: function (arg, jsEvent, view) { //Action when clicking a day
+
+                        yr = arg.start.getFullYear();
+
+                        if (arg.start.getMonth() < 10) {
+                            month = '0' + (arg.start.getMonth() + 1);
+                        } else {
+                            month = arg.start.getMonth() + 1;
+                        }
+                        day = arg.start.getDate() < 10 ? '0' + arg.start.getDate() : arg.start.getDate();
+                        
+                        newDate = yr + '-' + month + '-' + day;
+
+                        $('#modalTitle2').html(newDate);
+                        $('#dateReserv').attr('value', newDate);
+                        $('#fullModal2').modal();
+                        return false;
+                        calendar.unselect();
+                    },
+                    eventClick: function (arg, jsEvent, view) { //Action when clicking an event
+                        $('#modalTitle').html(arg.event.title);
+                        $('#modalBody').html(
+                            'Reservation ID: ' + arg.event.id + ' from: ' + arg.event.title
+                        );
+                        $('#eventUrl').attr('href', '../Reservations/Edit/' + arg.event.id);
+                        $('#fullModal').modal();
+                        return false;
+                    }
+                    
+                });
+                
+                calendar.render();
+                
+            });
+
+        $("#buttonR").click(function () {
+
+            $('#modalTitle2').html('');
+            $('#dateReserv').attr('value', '');
+            $('#fullModal2').modal();
+
+        });
+        
+    });
+
+
+</script>
+ 

@@ -1,0 +1,103 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Libs\fullcalendar\locales-all.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales-all.min.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\af.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-dz.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-kw.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-ly.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-ma.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-sa.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar-tn.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ar.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\az.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\bg.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\bn.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\bs.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ca.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\cs.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\cy.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\da.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\de-at.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\de.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\el.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\en-au.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\en-gb.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\en-nz.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\eo.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\es-us.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\es.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\et.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\eu.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\fa.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\fi.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\fr-ca.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\fr-ch.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\fr.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\gl.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\he.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\hi.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\hr.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\hu.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\hy-am.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\id.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\is.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\it.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ja.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ka.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\kk.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ko.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\lb.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\lt.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\lv.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\mk.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ms.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\nb.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ne.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\nl.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\nn.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\pl.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\pt-br.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\pt.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ro.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ru.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sk.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sl.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sq.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sr-cyrl.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sr.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\sv.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ta-in.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\th.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\tr.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\ug.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\uk.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\uz.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\vi.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\zh-cn.js" />
+    <None Include="wwwroot\Libs\fullcalendar\locales\zh-tw.js" />
+    <None Include="wwwroot\Libs\fullcalendar\main.css" />
+    <None Include="wwwroot\Libs\fullcalendar\main.js" />
+    <None Include="wwwroot\Libs\fullcalendar\main.min.css" />
+    <None Include="wwwroot\Libs\fullcalendar\main.min.js" />
+  </ItemGroup>
+
+</Project>

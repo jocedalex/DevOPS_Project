@@ -1,0 +1,136 @@
+﻿using DevOPS_Project.Data;
+using DevOPS_Project.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DevOPS_Project.Controllers
+{
+    [Authorize]
+    public class BuildingsController : Controller
+    {
+
+        private readonly ApplicationDbContext _context;
+
+        public BuildingsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        //Buildings Index GET
+        public IActionResult Index()
+        {
+            IEnumerable<Building> listBuilding = _context.Building;
+            return View(listBuilding);
+        }
+
+
+        //Create new entries GET
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        //Create new entries POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Building building)
+        {
+
+            if(ModelState.IsValid)
+            {
+                building.SyscreatedDt = DateTime.Now;
+                _context.Building.Add(building);
+                _context.SaveChanges();
+
+                TempData["success"] = "The new building has been created";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        //Edit field GET
+        public IActionResult Edit(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            //Get Building
+            var building = _context.Building.Find(id);
+
+            if(building == null)
+            {
+                return NotFound(); 
+            }
+
+            return View(building);
+        }
+
+        //Edit Field POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Building building)
+        {
+
+            if (ModelState.IsValid)
+            {
+                
+                _context.Building.Update(building);
+                _context.SaveChanges();
+
+                TempData["success"] = "The building has been updated";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        //Delete field GET
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            //Get Building
+            var building = _context.Building.Find(id);
+
+            if (building == null)
+            {
+                return NotFound();
+            }
+
+            return View(building);
+        }
+        
+        //Delete Field POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteBuilding(Building building)
+        {
+
+            
+            if (building == null)
+            {
+                return NotFound();
+            }
+
+              
+            _context.Building.Remove(building);
+            _context.SaveChanges();
+
+            TempData["success"] = "The building has been removed";
+            return RedirectToAction("Index");
+            
+
+        }
+    }
+}

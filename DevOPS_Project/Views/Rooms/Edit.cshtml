@@ -1,0 +1,52 @@
+﻿@model DevOPS_Project.Models.Room
+
+@{
+    ViewData["Title"] = "Edit Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Update Room</h3>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <form method="post" asp-action="Edit">
+
+            <input type="hidden" asp-for="RoomID" />
+            <input type="hidden" asp-for="BuildingID" />
+            <input type="hidden" asp-for="SyscreatedDt" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="RoomName" class="control-label"></label>
+                <input asp-for="RoomName" class="form-control" />
+                <span asp-validation-for="RoomName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsTR" class="control-label"></label>
+                <select asp-for="IsTR" class="form-control">
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+                <span asp-validation-for="IsTR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Update Room" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial.cshtml" />
+    }
+}
+
