@@ -123,8 +123,29 @@ namespace DevOPS_Project.Controllers
                 return NotFound();
             }
 
+            //var obj = new RoomsController();
               
             _context.Building.Remove(building);
+
+            IEnumerable<Room> rooms = _context.Room;
+
+            foreach (Room room in rooms)
+            {
+                if (room.BuildingID == building.BuildingID)
+                {
+                    _context.Room.Remove(room);//Removing rooms from this building
+                    IEnumerable<Reservation> reservs = _context.Reservation;
+
+                    foreach (Reservation reserv in reservs)
+                    {
+                        if (reserv.RoomID == room.RoomID)
+                        {
+                            _context.Reservation.Remove(reserv);//Removing reservations from existing rooms on this building
+                        }
+                    }
+                }
+            }
+
             _context.SaveChanges();
 
             TempData["success"] = "The building has been removed";

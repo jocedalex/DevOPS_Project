@@ -216,45 +216,8 @@ namespace DevOPS_Project.Controllers
             return View();
         }
 
-        //Delete field GET
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            //Get Building
-            var room = _context.Room.Find(id);
-
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            return View(room);
-        }
         
-        //Delete Field POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteRoom(Room room)
-        {
-
-            
-            if (room == null)
-            {
-                return NotFound();
-            }
-            var BId = room.BuildingID;
-              
-            _context.Room.Remove(room);
-            _context.SaveChanges();
-
-            TempData["success"] = "The room has been removed";
-            return RedirectToAction("Index", new { id = BId });
-            
-
-        }
+        
+        
     }
 }
