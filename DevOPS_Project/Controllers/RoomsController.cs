@@ -3,6 +3,7 @@ using DevOPS_Project.Helper;
 using DevOPS_Project.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,25 @@ namespace DevOPS_Project.Controllers
             ViewBag.Numerable = listRoom;
             ViewBag.BId = id;
             return View(listRoom);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetData(int? id)//Get data for table
+        {
+            var all = await _context.Room
+                .Where(e=> e.BuildingID == id)
+                .Select(i => new
+            {
+                roomID = i.RoomID,
+                roomName = i.RoomName,
+                isTR = i.IsTR,
+                syscreatedDt = i.SyscreatedDt.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                actions = "<a href='../../Rooms/Edit/" + i.RoomID + "' class='btn btn-warning'>Update</a> " +
+                "<a href='../../Rooms/Delete/" + i.RoomID + "' class='btn btn-danger'>Delete</a> " +
+                "<a href='../../Rooms/Calendar/" + i.RoomID + "' class='btn btn-dark'>Calendar</a>",
+            }).ToListAsync();
+
+            return Json(new { data = all });
         }
 
         //Get Calendar view for an specific Room

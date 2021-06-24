@@ -2,6 +2,7 @@
 using DevOPS_Project.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,22 @@ namespace DevOPS_Project.Controllers
         {
             IEnumerable<Building> listBuilding = _context.Building;
             return View(listBuilding);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetData()//Get data for table
+        {
+            var all = await _context.Building.Select(i=> new
+            {
+                buildingID = i.BuildingID,
+                buildingName = i.BuildingName,
+                syscreatedDt = i.SyscreatedDt.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                actions = "<a href='Buildings/Edit/"+i.BuildingID+ "' class='btn btn-warning' style='padding-right:10px'>Update</a> " +
+                "<a href='Buildings/Delete/" + i.BuildingID+ "' class='btn btn-danger'>Delete</a> " +
+                "<a href='Rooms/Index/" + i.BuildingID+"' class='btn btn-info'>Rooms</a>",
+            }).ToListAsync();
+
+            return Json(new { data = all });
         }
 
 

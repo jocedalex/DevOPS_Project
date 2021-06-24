@@ -28,6 +28,19 @@ namespace DevOPS_Project.Controllers
             return View(listUser);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetData()//Get data for table
+        {
+            var all = await _context.ToolUser.Select(i => new
+            {
+                userID = i.UserID,
+                userName = i.UserName,
+                syscreatedDt = i.SyscreatedDt.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                actions = "<a href='../../Users/Delete/"+i.UserID+"' class='btn btn-danger'>Delete</a>",
+            }).ToListAsync();
+
+            return Json(new { data = all });
+        }
 
         //Create new entries GET
         public IActionResult Create()
